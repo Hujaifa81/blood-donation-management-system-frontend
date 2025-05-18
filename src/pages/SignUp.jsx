@@ -8,29 +8,17 @@ import useAxiosSecure from '../hooks/useAxiosSecure';
 import { imageUpload } from '../api/imagebb';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
+import UpazilaDistrict from '../api/UpazilaDistrict';
 
 const SignUp = () => {
     const { emailRegister, updateUserProfile } = useAuth()
     const axiosPublic = useAxios()
     const axiosPrivate = useAxiosSecure()
     const navigate = useNavigate()
+    const {upazilas, districts} = UpazilaDistrict()
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
-    const { data: upazilas } = useQuery({
-        queryKey: ['upazilas'],
-        queryFn: async () => {
-            const response = await axios.get('upazilas.json')
-            return response.data
-        },
-    });
-    const { data: districts } = useQuery({
-        queryKey: ['districts'],
-        queryFn: async () => {
-            const response = await axios.get('districts.json')
-            return response.data
-        },
-    });
-    console.log(upazilas)
-    console.log(districts);
+    
+    
     const onSubmit = async (data) => {
         const photoURL = await imageUpload(data.photo[0])
 
@@ -55,11 +43,6 @@ const SignUp = () => {
             toast.error('User already exists')
         }
     }
-
-
-
-
-
 
     return (
         <div className="max-w-xl mx-auto p-5 dark:bg-black">
