@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import useTanstackGetRequest from '../hooks/useTanstackGetRequest';
 import { useForm } from 'react-hook-form';
-import UpazilaDistrict from '../api/UpazilaDistrict';
+import UpazilaDistrict from '../api/useUpazilaDistrict';
 import useTanstackPut from '../hooks/useTanstackPut';
 
 const UpdateRequest = () => {

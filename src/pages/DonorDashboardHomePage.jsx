@@ -10,7 +10,8 @@ const DonorDashboardHomePage = () => {
   const { data } = useTanstackGetRequest(`/donationRequests/${user?.email}`, 'donationRequests', `${user?.email}`, true)
   const { mutate: deleteRequest } = useTanstackDeleteRequest('donationRequests')
   const { mutate: patchRequest } = useTanstackPatch('donationRequests')
-  const recentRequests = data?.slice(0, 3);
+
+  const recentRequests = data ? data?.slice(0, 3):data;
 
   const handleStatusChange = async (id, status) => {
     let data = {

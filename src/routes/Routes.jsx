@@ -6,6 +6,7 @@ import CreateDonationRequest from "../pages/CreateDonationRequest";
 import Home from "../pages/Home";
 import Dashboard from "../pages/Dashboard";
 import UpdateRequest from "../pages/UpdateRequest";
+import Profile from "../pages/Profile";
 
 export const router = createBrowserRouter([
     {
@@ -27,6 +28,10 @@ export const router = createBrowserRouter([
             {
                 path:'/update-request/:id',
                 element:<UpdateRequest></UpdateRequest>
+            },
+            {
+                path:'profile',
+                element:<Profile></Profile>
             }
         ]
     },

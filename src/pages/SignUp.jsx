@@ -8,7 +8,7 @@ import useAxiosSecure from '../hooks/useAxiosSecure';
 import { imageUpload } from '../api/imagebb';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import UpazilaDistrict from '../api/UpazilaDistrict';
+import UpazilaDistrict from '../api/useUpazilaDistrict';
 
 const SignUp = () => {
     const { emailRegister, updateUserProfile } = useAuth()

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import useAuth from '../hooks/useAuth';
 import { useForm } from 'react-hook-form';
-import UpazilaDistrict from '../api/UpazilaDistrict';
+import UpazilaDistrict from '../api/useUpazilaDistrict';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 
