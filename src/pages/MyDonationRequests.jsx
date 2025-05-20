@@ -1,45 +1,79 @@
-import React from 'react';
-import useTanstackGetRequest from '../hooks/useTanstackGetRequest';
+import React, { useState } from 'react';
 import useAuth from '../hooks/useAuth';
+import useTanstackGetRequest from '../hooks/useTanstackGetRequest';
 import useTanstackDeleteRequest from '../hooks/useTanstackDeleteRequest';
 import useTanstackPatch from '../hooks/useTanstackPatch';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-const DonorDashboardHomePage = () => {
-  const { user } = useAuth()
-  const { data } = useTanstackGetRequest(`/donationRequests/${user?.email}?limit=3`, 'donationRequests', `${user?.email}`, true)
-  const { mutate: deleteRequest } = useTanstackDeleteRequest('donationRequests')
-  const { mutate: patchRequest } = useTanstackPatch('donationRequests')
-const navigate=useNavigate()
- 
+const MyDonationRequests = () => {
+  const { user } = useAuth();
+  const [status, setStatus] = useState('');
 
-  const handleStatusChange = async (id, status) => {
+  const { data } = useTanstackGetRequest(
+    `/donationRequests/${user?.email}?status=${status}`,
+    'donationRequests',
+    [user?.email, status],
+    true
+  );
+
+  const { mutate: deleteRequest } = useTanstackDeleteRequest('donationRequests');
+  const { mutate: patchRequest } = useTanstackPatch('donationRequests');
+
+  const handleStatusChange = (id, status) => {
     let data = {
       id,
-      status
-    }
+      status,
+    };
     if (status === 'inprogress') {
       data = {
         ...data,
         donorInfo: {
           donorName: user?.displayName,
-          donorEmail: user?.email
-        }
-      }
+          donorEmail: user?.email,
+        },
+      };
     }
     patchRequest({
       url: `/donationRequests/${data.id}`,
-      data: data
-    })
-  }
+      data,
+    });
+  };
 
+  const handleFilter = (value) => {
+    setStatus(value);
+  };
+  
   return (
     <div className="max-w-6xl mx-auto p-5 dark:bg-black">
-      <h1 className="text-2xl font-bold dark:text-white mb-4">Welcome, {user?.displayName}</h1>
+      <h1 className="text-2xl font-bold dark:text-white mb-4">
+        Welcome, {user?.displayName}
+      </h1>
 
-      {Array.isArray(data)  && (
+      <select
+        defaultValue=""
+        onChange={(e) => handleFilter(e.target.value)}
+        className="select mb-4"
+      >
+        <option value="">All</option>
+        <option value="pending">Pending</option>
+        <option value="inprogress">Inprogress</option>
+        <option value="done">Done</option>
+        <option value="cancel">Canceled</option>
+      </select>
+
+      {!Array.isArray(data) && (
+        <p className="text-red">Loading or no data available...</p>
+      )}
+
+      {Array.isArray(data) && data.length === 0 && (
+        <p className="text-red-500 mt-4">No donation requests with status "{status}"</p>
+      )}
+
+      {Array.isArray(data) && data.length > 0 && (
         <>
-          <h2 className="text-xl font-semibold dark:text-white mb-2">Recent Donation Requests</h2>
+          <h2 className="text-xl font-semibold dark:text-white mb-2">
+            My Donation Requests
+          </h2>
           <div className="overflow-x-auto">
             <table className="table table-zebra min-w-full text-sm text-left text-gray-500 dark:text-gray-300">
               <thead className="bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-white">
@@ -59,11 +93,12 @@ const navigate=useNavigate()
                 {data.map((req) => (
                   <tr key={req._id} className="border-b dark:border-gray-700">
                     <td className="p-3">{req.recipientName}</td>
-                    <td className="p-3">{req.recipientDistrict}, {req.recipientUpazila}</td>
+                    <td className="p-3">
+                      {req.recipientDistrict}, {req.recipientUpazila}
+                    </td>
                     <td className="p-3">{req.donationDate}</td>
                     <td className="p-3">{req.donationTime}</td>
                     <td className="p-3">{req.bloodGroup}</td>
-
                     <td className="p-3 capitalize">
                       <select
                         value={req.status}
@@ -91,12 +126,10 @@ const navigate=useNavigate()
                     </td>
                     <td className="px-6 py-4 space-x-2">
                       <Link to={`/update-request/${req._id}`}>
-                      <button
-
-                        className="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded-md text-sm"
-                      >
-                        Update
-                      </button></Link>
+                        <button className="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded-md text-sm">
+                          Update
+                        </button>
+                      </Link>
                       <button
                         onClick={() => deleteRequest(`/donationRequests/${req._id}`)}
                         className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-md text-sm mt-1"
@@ -104,31 +137,17 @@ const navigate=useNavigate()
                         Delete
                       </button>
                     </td>
-
                     <td>{req.donorInfo ? req.donorInfo.donorName : '-'}</td>
                     <td>{req.donorInfo ? req.donorInfo.donorEmail : '-'}</td>
-
-
-
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-
-          <div className="mt-5 text-center">
-            <button
-                onClick={() => navigate('/dashboard/my-donation-requests')}
-              className="bg-red-600 text-white px-4 py-2 rounded"
-            >
-              View My All Requests
-            </button>
-          </div>
         </>
       )}
     </div>
   );
-
 };
 
-export default DonorDashboardHomePage;
+export default MyDonationRequests;

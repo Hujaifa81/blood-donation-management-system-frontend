@@ -50,7 +50,7 @@ export const Profile = () => {
                     }
                 });
                 await updateUserProfile(data.name, data.image)
-                console.log(user);
+                
                 setLoading(false)
             }
         }

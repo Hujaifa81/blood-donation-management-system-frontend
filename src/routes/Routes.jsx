@@ -7,6 +7,9 @@ import Home from "../pages/Home";
 import Dashboard from "../pages/Dashboard";
 import UpdateRequest from "../pages/UpdateRequest";
 import Profile from "../pages/Profile";
+import MyDonationRequests from "../pages/MyDonationRequests";
+import AllBloodDonationRequests from "../pages/AllBloodDonationRequests";
+import AllUsers from "../pages/AllUsers";
 
 export const router = createBrowserRouter([
     {
@@ -32,6 +35,18 @@ export const router = createBrowserRouter([
             {
                 path:'profile',
                 element:<Profile></Profile>
+            },
+            {
+                path:'dashboard/my-donation-requests',
+                element:<MyDonationRequests></MyDonationRequests>
+            },
+            {
+                path:'dashboard/all-blood-donation-request',
+                element:<AllBloodDonationRequests></AllBloodDonationRequests>
+            },
+            {
+                path:'dashboard/all-users',
+                element:<AllUsers></AllUsers>
             }
         ]
     },
