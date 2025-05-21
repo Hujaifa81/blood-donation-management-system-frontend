@@ -10,6 +10,8 @@ import Profile from "../pages/Profile";
 import MyDonationRequests from "../pages/MyDonationRequests";
 import AllBloodDonationRequests from "../pages/AllBloodDonationRequests";
 import AllUsers from "../pages/AllUsers";
+import AddBlog from "../pages/AddBlog";
+
 
 export const router = createBrowserRouter([
     {
@@ -47,7 +49,12 @@ export const router = createBrowserRouter([
             {
                 path:'dashboard/all-users',
                 element:<AllUsers></AllUsers>
-            }
+            },
+            {
+                path:'dashboard/content-management/add-blog',
+                element:<AddBlog></AddBlog>
+            },
+            
         ]
     },
     {
