@@ -7,6 +7,7 @@ import Editor from '../components/Editor';
 import useTanstackGetRequest from '../hooks/useTanstackGetRequest';
 import useTanstackPatch from '../hooks/useTanstackPatch';
 import PaginationButtons from '../components/PaginationButtons';
+import useTanstackDeleteRequest from '../hooks/useTanstackDeleteRequest';
 
 const AddBlog = () => {
     const [status,setStatus]=useState('')
@@ -17,6 +18,7 @@ const AddBlog = () => {
     const { data: blogs } = useTanstackGetRequest(`/blogs?status=${status}&page=${currentPage}&limit=${itemsPerPage}`, 'blogs', [status,currentPage,itemsPerPage], true)
     const {mutate:patchMutate}=useTanstackPatch('blogs')
     const { mutate } = useTanstackPost('blogs')
+    const {mutate:mutateDelete}=useTanstackDeleteRequest('blogs')
     const {
         register,
         handleSubmit,
@@ -62,6 +64,9 @@ const AddBlog = () => {
     const handleFilter=(blogStatus)=>{
         setStatus(blogStatus)
         setCurrentPage(1)
+    }
+    const handleDelete=(id)=>{
+        mutateDelete(`/blogs/${id}`)
     }
     return (
         <div>
@@ -145,6 +150,10 @@ const AddBlog = () => {
                                     }
 
                                 </div>
+                                <div>
+                                    <button onClick={()=>handleDelete(blog._id)}>Delete</button>
+                                </div>
+
                             </div>
                         ))}
                     </div>)
