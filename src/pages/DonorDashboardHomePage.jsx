@@ -10,8 +10,8 @@ const DonorDashboardHomePage = () => {
   const { data } = useTanstackGetRequest(`/donationRequests/${user?.email}?limit=3`, 'donationRequests', `${user?.email}`, true)
   const { mutate: deleteRequest } = useTanstackDeleteRequest('donationRequests')
   const { mutate: patchRequest } = useTanstackPatch('donationRequests')
-const navigate=useNavigate()
- 
+  const navigate = useNavigate()
+
 
   const handleStatusChange = async (id, status) => {
     let data = {
@@ -37,7 +37,7 @@ const navigate=useNavigate()
     <div className="max-w-6xl mx-auto p-5 dark:bg-black">
       <h1 className="text-2xl font-bold dark:text-white mb-4">Welcome, {user?.displayName}</h1>
 
-      {Array.isArray(data)  && (
+      {Array.isArray(data) && (
         <>
           <h2 className="text-xl font-semibold dark:text-white mb-2">Recent Donation Requests</h2>
           <div className="overflow-x-auto">
@@ -91,12 +91,12 @@ const navigate=useNavigate()
                     </td>
                     <td className="px-6 py-4 space-x-2">
                       <Link to={`/update-request/${req._id}`}>
-                      <button
+                        <button
 
-                        className="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded-md text-sm"
-                      >
-                        Update
-                      </button></Link>
+                          className="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded-md text-sm"
+                        >
+                          Update
+                        </button></Link>
                       <button
                         onClick={() => deleteRequest(`/donationRequests/${req._id}`)}
                         className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-md text-sm mt-1"
@@ -118,7 +118,7 @@ const navigate=useNavigate()
 
           <div className="mt-5 text-center">
             <button
-                onClick={() => navigate('/dashboard/my-donation-requests')}
+              onClick={() => navigate('/dashboard/my-donation-requests')}
               className="bg-red-600 text-white px-4 py-2 rounded"
             >
               View My All Requests

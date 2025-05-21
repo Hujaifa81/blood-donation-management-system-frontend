@@ -55,7 +55,7 @@ export const Profile = () => {
             }
         }
     };
-
+    console.log(userResult);
 
     return (
         <div className="max-w-xl mx-auto p-5 dark:bg-black">

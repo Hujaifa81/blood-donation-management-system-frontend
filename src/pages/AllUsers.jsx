@@ -1,14 +1,20 @@
 import React, { useState } from 'react';
 import useTanstackGetRequest from '../hooks/useTanstackGetRequest';
 import useTanstackPatch from '../hooks/useTanstackPatch';
+import PaginationButtons from '../components/PaginationButtons';
 
 const AllUsers = () => {
     const [status, setStatus] = useState('')
-    const { data } = useTanstackGetRequest(`/users?status=${status}`, 'users', status, true)
+    const [itemsPerPage] = useState(4);
+    const [currentPage, setCurrentPage] = useState(1);
+    
+    const { data: dataCount } = useTanstackGetRequest(`users/count?status=${status}`, 'usersCount', status, true)
+     const { data } = useTanstackGetRequest(`/users?status=${status}&page=${currentPage}&limit=${itemsPerPage}`, 'users', [status,currentPage,itemsPerPage], true)
     const { mutate } = useTanstackPatch('users')
-
+    
     const handleFilter = (value) => {
         setStatus(value)
+        setCurrentPage(1)
     }
     const handleStatus = (value, id) => {
         mutate({
@@ -111,6 +117,7 @@ const AllUsers = () => {
                     </table>
                 )
             }
+            <PaginationButtons currentPage={currentPage} setCurrentPage={setCurrentPage} itemsPerPage={itemsPerPage} dataCount={dataCount} ></PaginationButtons>
         </div>
 
     );

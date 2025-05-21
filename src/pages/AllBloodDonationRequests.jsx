@@ -5,18 +5,22 @@ import useTanstackDeleteRequest from '../hooks/useTanstackDeleteRequest';
 import useTanstackPatch from '../hooks/useTanstackPatch';
 import { Link } from 'react-router-dom';
 import useRoleStatus from '../hooks/useRoleStatus';
+import PaginationButtons from '../components/PaginationButtons';
 
 const AllBloodDonationRequests = () => {
   const { user } = useAuth();
   const { userRole, userStatus } = useRoleStatus()
   const [status, setStatus] = useState('');
-  console.log(userRole, userStatus);
+  const [currentPage,setCurrentPage]=useState(1)
+  const [itemsPerPage]=useState(4)
+ 
 
 
+  const {data:dataCount}=useTanstackGetRequest(`/donationRequests/count?status=${status}`, 'donationRequestsCount', status, true)
   const { data } = useTanstackGetRequest(
-    `/donationRequests?status=${status}`,
+    `/donationRequests?status=${status}&page=${currentPage}&limit=${itemsPerPage}`,
     'donationRequests',
-    status,
+    [user?.email, status,currentPage,itemsPerPage],
     true
   );
 
@@ -76,7 +80,7 @@ const AllBloodDonationRequests = () => {
       {Array.isArray(data) && data.length > 0 && (
         <>
           <h2 className="text-xl font-semibold dark:text-white mb-2">
-            My Donation Requests
+            All Blood Donation Requests
           </h2>
           <div className="overflow-x-auto">
             <table className="table table-zebra min-w-full text-sm text-left text-gray-500 dark:text-gray-300">
@@ -154,6 +158,7 @@ const AllBloodDonationRequests = () => {
           </div>
         </>
       )}
+      <PaginationButtons currentPage={currentPage} setCurrentPage={setCurrentPage} itemsPerPage={itemsPerPage} dataCount={dataCount}></PaginationButtons>
     </div>
   );
 };

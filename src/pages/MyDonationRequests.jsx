@@ -4,15 +4,19 @@ import useTanstackGetRequest from '../hooks/useTanstackGetRequest';
 import useTanstackDeleteRequest from '../hooks/useTanstackDeleteRequest';
 import useTanstackPatch from '../hooks/useTanstackPatch';
 import { Link } from 'react-router-dom';
+import PaginationButtons from '../components/PaginationButtons';
 
 const MyDonationRequests = () => {
   const { user } = useAuth();
   const [status, setStatus] = useState('');
+  const [currentPage,setCurrentPage]=useState(1)
+  const [itemsPerPage]=useState(4)
 
+  const {data:dataCount}=useTanstackGetRequest(`/donationRequests/count/${user?.email}?status=${status}`, 'donationRequestsCount', [status,user?.email], true)
   const { data } = useTanstackGetRequest(
-    `/donationRequests/${user?.email}?status=${status}`,
+    `/donationRequests/${user?.email}?status=${status}&page=${currentPage}&limit=${itemsPerPage}`,
     'donationRequests',
-    [user?.email, status],
+    [user?.email, status,currentPage,itemsPerPage],
     true
   );
 
@@ -146,6 +150,7 @@ const MyDonationRequests = () => {
           </div>
         </>
       )}
+      <PaginationButtons currentPage={currentPage} setCurrentPage={setCurrentPage} itemsPerPage={itemsPerPage} dataCount={dataCount} ></PaginationButtons>
     </div>
   );
 };
