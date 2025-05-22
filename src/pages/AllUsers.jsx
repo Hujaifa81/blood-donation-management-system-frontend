@@ -29,7 +29,7 @@ const AllUsers = () => {
         })
     }
     return (
-        <div className="overflow-x-auto max-w-6xl mx-auto p-5 dark:bg-black">
+        <div className="overflow-x-auto max-w-6xl mx-auto px-5 dark:bg-black">
             <h2 className="text-2xl font-bold mb-4 text-center dark:text-white">User Management</h2>
             <select
                 defaultValue=""

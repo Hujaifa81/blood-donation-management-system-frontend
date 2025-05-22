@@ -59,7 +59,7 @@ const CreateDonationRequest = () => {
       });
     //   console.log(data);
     return (
-        <div className="max-w-2xl mx-auto p-5 dark:bg-black">
+        <div className="max-w-2xl mx-auto px-5 dark:bg-black">
             <h2 className="text-2xl font-bold mb-4 text-center dark:text-white">Create Donation Request</h2>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                 {/* Requester Info */}

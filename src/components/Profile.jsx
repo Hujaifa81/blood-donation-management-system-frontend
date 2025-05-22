@@ -55,10 +55,10 @@ export const Profile = () => {
             }
         }
     };
-    console.log(userResult);
+  
 
     return (
-        <div className="max-w-xl mx-auto p-5 dark:bg-black">
+        <div className="max-w-xl mx-auto px-3 dark:bg-black">
             <h2 className="text-2xl font-bold mb-4 text-center dark:text-white">Profile</h2>
             {
                 loading?'loading.............':userResult && (
@@ -126,7 +126,7 @@ export const Profile = () => {
                                 {errors.upazila && <p className="text-red-500">{errors.upazila.message}</p>}
                             </div>
                             <div>
-                                <img src={userResult?.image} alt="" />
+                                <img src={userResult?.image} alt="" className='w-20 h-20 rounded-full object-cover' />
                             </div>
                             {
                                 notEdit || (<div>
@@ -134,7 +134,7 @@ export const Profile = () => {
                                     <input
                                         type="file"
                                         accept="image/*"
-                                        className="w-full border p-2 rounded dark:bg-gray-900"
+                                        className=" border p-2 rounded dark:bg-gray-900 "
                                         {...register("photo", {
                                             // required: "Photo is required",
                                         })}

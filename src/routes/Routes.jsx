@@ -11,6 +11,8 @@ import MyDonationRequests from "../pages/MyDonationRequests";
 import AllBloodDonationRequests from "../pages/AllBloodDonationRequests";
 import AllUsers from "../pages/AllUsers";
 import AddBlog from "../pages/AddBlog";
+import DashboardLayout from "../layouts/DashboardLayout";
+import ContentManagement from "../pages/ContentManagement";
 
 
 export const router = createBrowserRouter([
@@ -22,39 +24,49 @@ export const router = createBrowserRouter([
                 path: '/',
                 element: <Home></Home>
             },
+
+        ]
+    },
+    {
+        path: '/dashboard',
+        element: <DashboardLayout></DashboardLayout>,
+        children: [
+            {
+                index: true,
+                element: <Dashboard></Dashboard>
+            },
+            {
+                path: 'profile',
+                element: <Profile></Profile>
+            },
+            {
+                path: 'my-donation-requests',
+                element: <MyDonationRequests></MyDonationRequests>
+            },
             {
                 path: 'create-donation-request',
                 element: <CreateDonationRequest></CreateDonationRequest>
             },
             {
-                path:'dashboard',
-                element:<Dashboard></Dashboard>
+                path: 'all-users',
+                element: <AllUsers></AllUsers>
             },
             {
-                path:'/update-request/:id',
-                element:<UpdateRequest></UpdateRequest>
+                path: 'all-blood-donation-request',
+                element: <AllBloodDonationRequests></AllBloodDonationRequests>
             },
             {
-                path:'profile',
-                element:<Profile></Profile>
+                path: 'content-management',
+                element: <ContentManagement></ContentManagement>
             },
             {
-                path:'dashboard/my-donation-requests',
-                element:<MyDonationRequests></MyDonationRequests>
+                path: 'content-management/add-blog',
+                element: <AddBlog></AddBlog>
             },
             {
-                path:'dashboard/all-blood-donation-request',
-                element:<AllBloodDonationRequests></AllBloodDonationRequests>
+                path: 'update-request/:id',
+                element: <UpdateRequest></UpdateRequest>
             },
-            {
-                path:'dashboard/all-users',
-                element:<AllUsers></AllUsers>
-            },
-            {
-                path:'dashboard/content-management/add-blog',
-                element:<AddBlog></AddBlog>
-            },
-            
         ]
     },
     {

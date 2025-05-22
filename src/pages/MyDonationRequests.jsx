@@ -48,7 +48,7 @@ const MyDonationRequests = () => {
   };
   
   return (
-    <div className="max-w-6xl mx-auto p-5 dark:bg-black">
+    <div className="max-w-6xl mx-auto px-5 dark:bg-black ">
       <h1 className="text-2xl font-bold dark:text-white mb-4">
         Welcome, {user?.displayName}
       </h1>
@@ -129,7 +129,7 @@ const MyDonationRequests = () => {
                       </select>
                     </td>
                     <td className="px-6 py-4 space-x-2">
-                      <Link to={`/update-request/${req._id}`}>
+                      <Link to={`/dashboard/update-request/${req._id}`}>
                         <button className="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded-md text-sm">
                           Update
                         </button>
