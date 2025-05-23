@@ -4,15 +4,22 @@ import useTanstackGetRequest from '../hooks/useTanstackGetRequest';
 import useTanstackPatch from '../hooks/useTanstackPatch';
 import PaginationButtons from '../components/PaginationButtons';
 import useTanstackDeleteRequest from '../hooks/useTanstackDeleteRequest';
+import parse from 'html-react-parser';
+import { Tooltip } from 'react-tooltip';
+import 'react-tooltip/dist/react-tooltip.css';
+import EditBlogModal from '../components/EditBlogModal';
+
+
 const ContentManagement = () => {
     const navigate = useNavigate();
     const [status, setStatus] = useState('')
     const [itemsPerPage] = useState(3);
     const [currentPage, setCurrentPage] = useState(1);
     const { data: dataCount } = useTanstackGetRequest(`/blogs/count?status=${status}`, 'blogsCount', `${status}`, true)
-    const { data: blogs } = useTanstackGetRequest(`/blogs?status=${status}&page=${currentPage}&limit=${itemsPerPage}`, 'blogs', [status, currentPage, itemsPerPage], true)
+    const { data: blogsData } = useTanstackGetRequest(`/blogs?status=${status}&page=${currentPage}&limit=${itemsPerPage}`, 'blogs', [status, currentPage, itemsPerPage], true)
     const { mutate: patchMutate } = useTanstackPatch('blogs')
     const { mutate: mutateDelete } = useTanstackDeleteRequest('blogs')
+    const [show,setShow] = useState(false)
 
     // const handleAddBlog = () => {
     //     navigate('/dashboard/content-management/add-blog');
@@ -60,13 +67,13 @@ const ContentManagement = () => {
 
                 </select>
                 {
-                    !Array.isArray(blogs) && <div className="dark:text-white">
+                    !Array.isArray(blogsData) && <div className="dark:text-white">
                         <p>No blog posts yet. Click "Add Blog" to get started!</p>
                     </div>
                 }
-                {Array.isArray(blogs) && (
+                {Array.isArray(blogsData) && (
                     <div className="grid grid-cols-3 sm:grid-cols-3 lg:grid-cols-3 gap-6">
-                        {blogs.map((blog) => (
+                        {blogsData.map((blog) => (
                             <div key={blog._id} className="bg-white dark:bg-gray-900 rounded-lg shadow-md overflow-hidden flex flex-col justify-between">
                                 {blog.thumbnail && (
                                     <img
@@ -81,12 +88,30 @@ const ContentManagement = () => {
                                     <p className="text-xs text-gray-500 dark:text-gray-400">
                                         {new Date(blog.createdAt).toLocaleString()}
                                     </p>
-                                    <div 
-                                        className="text-sm text-gray-700 dark:text-gray-200 line-clamp-4"
-                                        dangerouslySetInnerHTML={{ __html: blog.content }}
-                                        
-                                    ></div>
-                                   {/* <p title={blog.content.replace(/<[^>]*>/g, '')}>See more</p> */}
+
+                                    <p className="text-sm text-gray-600 dark:text-gray-300">
+                                        <>
+                                            {parse(blog.content.slice(0, 100))}
+                                            {blog.content.length > 100 && (
+                                                <>
+                                                    <span
+                                                        data-tooltip-id={`tooltip-${blog._id}`}
+                                                        data-tooltip-html={blog.content}
+                                                        className="text-blue-600 cursor-pointer underline"
+                                                    >
+                                                        See more...
+                                                    </span>
+                                                    <Tooltip
+                                                        id={`tooltip-${blog._id}`}
+                                                        place="top"
+                                                        className="z-50 max-w-xs"
+                                                    />
+                                                </>
+                                            )}
+                                        </>
+                                    </p>
+
+
                                 </div>
 
                                 <div className="p-4 flex justify-between items-center border-t border-gray-200 dark:border-gray-700">
@@ -105,7 +130,13 @@ const ContentManagement = () => {
                                             Unpublish
                                         </button>
                                     )}
-
+                                    <button
+                                        onClick={() => setShow(true)}
+                                        className="text-sm px-4 py-1 rounded-md bg-red-600 hover:bg-red-700 text-white"
+                                    >
+                                        Edit
+                                    </button>
+                                    <EditBlogModal show={show} setShow={setShow} data={blog} url={`blog/${blog._id}`} queryKey={'blogs'} ></EditBlogModal>
                                     <button
                                         onClick={() => handleDelete(blog._id)}
                                         className="text-sm px-4 py-1 rounded-md bg-red-600 hover:bg-red-700 text-white"
@@ -118,9 +149,8 @@ const ContentManagement = () => {
                     </div>
                 )}
 
-
                 <PaginationButtons currentPage={currentPage} setCurrentPage={setCurrentPage} itemsPerPage={itemsPerPage} dataCount={dataCount}></PaginationButtons>
-
+                
             </div>
         </div>
     );

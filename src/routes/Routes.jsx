@@ -13,6 +13,7 @@ import AllUsers from "../pages/AllUsers";
 import AddBlog from "../pages/AddBlog";
 import DashboardLayout from "../layouts/DashboardLayout";
 import ContentManagement from "../pages/ContentManagement";
+import PrivateRoute from "../components/PrivateRoute";
 
 
 export const router = createBrowserRouter([
@@ -37,35 +38,35 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'profile',
-                element: <Profile></Profile>
+                element: <PrivateRoute><Profile></Profile></PrivateRoute>
             },
             {
                 path: 'my-donation-requests',
-                element: <MyDonationRequests></MyDonationRequests>
+                element: <PrivateRoute><MyDonationRequests></MyDonationRequests></PrivateRoute>
             },
             {
                 path: 'create-donation-request',
-                element: <CreateDonationRequest></CreateDonationRequest>
+                element: <PrivateRoute><CreateDonationRequest></CreateDonationRequest></PrivateRoute>
             },
             {
                 path: 'all-users',
-                element: <AllUsers></AllUsers>
+                element: <PrivateRoute><AllUsers></AllUsers></PrivateRoute>
             },
             {
                 path: 'all-blood-donation-request',
-                element: <AllBloodDonationRequests></AllBloodDonationRequests>
+                element: <PrivateRoute><AllBloodDonationRequests></AllBloodDonationRequests></PrivateRoute>
             },
             {
                 path: 'content-management',
-                element: <ContentManagement></ContentManagement>
+                element: <PrivateRoute><ContentManagement></ContentManagement></PrivateRoute>
             },
             {
                 path: 'content-management/add-blog',
-                element: <AddBlog></AddBlog>
+                element:<PrivateRoute><AddBlog></AddBlog></PrivateRoute>
             },
             {
                 path: 'update-request/:id',
-                element: <UpdateRequest></UpdateRequest>
+                element: <PrivateRoute><UpdateRequest></UpdateRequest></PrivateRoute>
             },
         ]
     },

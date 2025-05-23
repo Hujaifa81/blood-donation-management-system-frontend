@@ -7,9 +7,11 @@ import toast from 'react-hot-toast';
 
 import useAxiosSecure from '../hooks/useAxiosSecure';
 import { data } from 'react-router-dom';
+import useRoleStatus from '../hooks/useRoleStatus';
 
 const CreateDonationRequest = () => {
     const { user } = useAuth();
+    const {userStatus}=useRoleStatus()
     const { upazilas, districts } = UpazilaDistrict();
     const axiosPrivate=useAxiosSecure()
     const {
@@ -59,7 +61,9 @@ const CreateDonationRequest = () => {
       });
     //   console.log(data);
     return (
-        <div className="max-w-2xl mx-auto px-5 dark:bg-black">
+        <>
+        {
+             userStatus === 'active'?(<div className="max-w-2xl mx-auto px-5 dark:bg-black">
             <h2 className="text-2xl font-bold mb-4 text-center dark:text-white">Create Donation Request</h2>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                 {/* Requester Info */}
@@ -195,7 +199,11 @@ const CreateDonationRequest = () => {
                     Submit Request
                 </button>
             </form>
-        </div>
+        </div>):(<p>Your status is blocked.So you can not create a request </p>)
+        }
+        </>
+        
+        
 
     );
 };
