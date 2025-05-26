@@ -11,8 +11,9 @@ export const Profile = () => {
     const { user,updateUserProfile } = useAuth()
     const { mutate, isPending } = useTanstackPut('user')
     const navigate = useNavigate()
-    const { data: userResult } = useTanstackGetRequest(`/user/${user?.email}`, 'user', `${user?.email}`, true) // ✅ fixed template string
     const { upazilas, districts } = useUpazilaDistrict()
+    const { data: userResult } = useTanstackGetRequest(`/user/${user?.email}`, 'user', [user?.email,upazilas, districts], true) // ✅ fixed template string
+    
     const [notEdit, setNotEdit] = useState(true)
     const { register, handleSubmit, formState: { errors } } = useForm()
     const [loading,setLoading]=useState(false)

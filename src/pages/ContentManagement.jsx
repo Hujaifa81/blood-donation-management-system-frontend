@@ -8,10 +8,12 @@ import parse from 'html-react-parser';
 import { Tooltip } from 'react-tooltip';
 import 'react-tooltip/dist/react-tooltip.css';
 import EditBlogModal from '../components/EditBlogModal';
+import useRoleStatus from '../hooks/useRoleStatus';
 
 
 const ContentManagement = () => {
     const navigate = useNavigate();
+    const {userRole}=useRoleStatus()
     const [status, setStatus] = useState('')
     const [itemsPerPage] = useState(3);
     const [currentPage, setCurrentPage] = useState(1);
@@ -115,7 +117,8 @@ const ContentManagement = () => {
                                 </div>
 
                                 <div className="p-4 flex justify-between items-center border-t border-gray-200 dark:border-gray-700">
-                                    {blog.status === 'drafted' ? (
+                                    {
+                                        userRole==='admin' && (<div>{blog.status === 'drafted' ? (
                                         <button
                                             onClick={() => handleStatus(blog._id, blog.status)}
                                             className="text-sm px-4 py-1 rounded-md bg-blue-500 hover:bg-blue-600 text-white"
@@ -129,7 +132,10 @@ const ContentManagement = () => {
                                         >
                                             Unpublish
                                         </button>
-                                    )}
+                                    )}</div>
+                                            
+                                        )
+                                    }
                                     <button
                                         onClick={() => setShow(true)}
                                         className="text-sm px-4 py-1 rounded-md bg-red-600 hover:bg-red-700 text-white"
@@ -137,12 +143,16 @@ const ContentManagement = () => {
                                         Edit
                                     </button>
                                     <EditBlogModal show={show} setShow={setShow} data={blog} url={`blog/${blog._id}`} queryKey={'blogs'} ></EditBlogModal>
-                                    <button
+                                    {
+                                        userRole === 'admin' && (
+                                            <button
                                         onClick={() => handleDelete(blog._id)}
                                         className="text-sm px-4 py-1 rounded-md bg-red-600 hover:bg-red-700 text-white"
                                     >
                                         Delete
                                     </button>
+                                        )
+                                    }
                                 </div>
                             </div>
                         ))}

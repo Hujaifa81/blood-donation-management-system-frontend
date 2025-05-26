@@ -18,23 +18,11 @@ const navLinkClass = ({ isActive }) =>
     }`;
 
 const Sidebar = () => {
-    
-    const {userRole,name,photo}=useRoleStatus()
+
+    const { userRole } = useRoleStatus()
     return (
         <div className="h-full px-3 space-y-2  dark:bg-gray-50 dark:text-gray-800">
-            {/* Profile Section */}
-            <div className="flex  p-2 space-x-4">
-                <img
-                    src={photo}
-                    alt="Profile"
-                    className="w-12 h-12 rounded-full object-cover"
-                />
-                <div>
-                    <h2 className="text-xs font-bold">{name}</h2>
-                    <span className="text-xs text-gray-500 capitalize">{userRole}</span>
-                </div>
-            </div>
-
+           
             {/* Navigation */}
             <div className="divide-y dark:divide-gray-300">
                 <ul className="pt-2 pb-4 space-y-1 text-sm">
@@ -59,24 +47,26 @@ const Sidebar = () => {
                         </NavLink>
                     </li>
                     {
-                        userRole ==='admin' && (<li>
-                        <NavLink to="/dashboard/all-users" className={navLinkClass}>
-                            <FaUsers /> <span>All Users</span>
-                        </NavLink>
-                    </li>)
+                        userRole === 'admin' && (<li>
+                            <NavLink to="/dashboard/all-users" className={navLinkClass}>
+                                <FaUsers /> <span>All Users</span>
+                            </NavLink>
+                        </li>)
                     }
                     {
-                        userRole ==='admin' && userRole==='volunteer' && (<li>
-                        <NavLink to="/dashboard/all-blood-donation-request" className={navLinkClass}>
-                            <FaClipboardList /> <span>All Donation Requests</span>
-                        </NavLink>
-                    </li>)
+                        (userRole === 'admin' || userRole === 'volunteer') && (<li>
+                            <NavLink to="/dashboard/all-blood-donation-request" className={navLinkClass}>
+                                <FaClipboardList /> <span>All Donation Requests</span>
+                            </NavLink>
+                        </li>)
                     }
-                    <li>
-                        <NavLink to="/dashboard/content-management" end className={navLinkClass}>
-                            <FaBlog /> <span>Content Management</span>
-                        </NavLink>
-                    </li>
+                    {
+                        (userRole === 'admin' || userRole === 'volunteer') && (<li>
+                            <NavLink to="/dashboard/content-management" end className={navLinkClass}>
+                                <FaBlog /> <span>Content Management</span>
+                            </NavLink>
+                        </li>)
+                    }
                 </ul>
 
                 {/* Footer Actions */}

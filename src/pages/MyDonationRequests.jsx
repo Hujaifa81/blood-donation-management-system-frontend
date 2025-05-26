@@ -28,15 +28,7 @@ const MyDonationRequests = () => {
       id,
       status,
     };
-    if (status === 'inprogress') {
-      data = {
-        ...data,
-        donorInfo: {
-          donorName: user?.displayName,
-          donorEmail: user?.email,
-        },
-      };
-    }
+    
     patchRequest({
       url: `/donationRequests/${data.id}`,
       data,
@@ -50,7 +42,7 @@ const MyDonationRequests = () => {
   return (
     <div className="max-w-6xl mx-auto px-5 dark:bg-black ">
       <h1 className="text-2xl font-bold dark:text-white mb-4">
-        Welcome, {user?.displayName}
+        My Donation Requests
       </h1>
 
       <select
@@ -107,18 +99,18 @@ const MyDonationRequests = () => {
                       <select
                         value={req.status}
                         onChange={(e) => handleStatusChange(req._id, e.target.value)}
-                        disabled={req.status === 'done' || req.status === 'cancel'}
+                        disabled={req.status === 'done' || req.status === 'cancel' || req.status === 'pending'}
                         className="bg-white dark:bg-gray-900 border p-1 rounded"
                       >
                         {req.status === 'pending' && (
                           <>
-                            <option value="pending">pending</option>
-                            <option value="inprogress">inprogress</option>
+                            <option>pending</option>
+                           
                           </>
                         )}
                         {req.status === 'inprogress' && (
                           <>
-                            <option value="inprogress">inprogress</option>
+                            <option>inprogress</option>
                             <option value="done">done</option>
                             <option value="cancel">cancel</option>
                           </>

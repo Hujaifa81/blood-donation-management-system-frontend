@@ -68,18 +68,18 @@ const DonorDashboardHomePage = () => {
                       <select
                         value={req.status}
                         onChange={(e) => handleStatusChange(req._id, e.target.value)}
-                        disabled={req.status === 'done' || req.status === 'cancel'}
+                        disabled={req.status === 'done' || req.status === 'cancel' || req.status === 'pending'}
                         className="bg-white dark:bg-gray-900 border p-1 rounded"
                       >
                         {req.status === 'pending' && (
                           <>
-                            <option value="pending">pending</option>
-                            <option value="inprogress">inprogress</option>
+                            <option >pending</option>
+                            
                           </>
                         )}
                         {req.status === 'inprogress' && (
                           <>
-                            <option value="inprogress">inprogress</option>
+                            <option >inprogress</option>
                             <option value="done">done</option>
                             <option value="cancel">cancel</option>
                           </>
