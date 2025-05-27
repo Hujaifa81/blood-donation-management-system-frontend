@@ -69,24 +69,7 @@ const Sidebar = () => {
                     }
                 </ul>
 
-                {/* Footer Actions */}
-                <ul className="pt-4 pb-2 space-y-1 text-sm">
-                    <li>
-                        <NavLink to="/dashboard/settings" className={navLinkClass}>
-                            <FaCog /> <span>Settings</span>
-                        </NavLink>
-                    </li>
-                    <li>
-                        <button
-                            onClick={() => {
-                                // TODO: Add logout logic
-                            }}
-                            className="flex items-center gap-3 p-2 rounded-md text-red-600 hover:bg-gray-100 w-full"
-                        >
-                            <FaSignOutAlt /> <span>Logout</span>
-                        </button>
-                    </li>
-                </ul>
+               
             </div>
         </div>
     );
