@@ -4,10 +4,13 @@ import { AuthContext } from '../providers/AuthProvider';
 import profile from '../assets/no-profile-picture-15257.png'
 import useAuth from '../hooks/useAuth';
 
+import useAxiosSecure from '../hooks/useAxiosSecure';
+import toast from 'react-hot-toast';
+
 const Nav = () => {
     const { user, logOut } = useAuth()
     const navigate = useNavigate()
-
+    const axiosPrivate = useAxiosSecure()
     useEffect(() => {
         const theme = document.querySelector('.theme-controller')
         if (localStorage.getItem('theme') === 'dark') {
@@ -65,7 +68,7 @@ const Nav = () => {
                 <div className='navbar-center'>
                     <div className=" hidden lg:flex font-bold">
                         <ul className="menu menu-horizontal px-1 gap-4 items-center">
-                            
+
                             <li><NavLink to='/donation-requests' className={({ isActive, isPending }) =>
                                 isPending ? "pending" : isActive ? "bg-red-600 px-2 rounded py-1" : ""}>Donation Requests</NavLink></li>
                             {
@@ -96,21 +99,28 @@ const Nav = () => {
 
                                 {/* Hover Menu (Display Name + Logout) */}
                                 <div className="absolute right-0 mt-3 w-40 bg-base-100 p-2 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                                   <p className='text-center text-sm'><NavLink to={`/dashboard`} >Dashboard</NavLink></p>
-                                    <button className="btn btn-error bg-red-600 text-white  btn-sm w-full mt-4" onClick={() => {
-                                        logOut()
-                                            .then(() => {
-                                                navigate('/sign-in')
-                                            })
-                                    }}>Logout</button>
+                                    <p className='text-center text-sm'><NavLink to={`/dashboard`} >Dashboard</NavLink></p>
+                                    <button className="btn btn-error bg-red-600 text-white  btn-sm w-full mt-4" onClick={async () => {
+                                        try {
+                                            await logOut();
+                                            const res = await axiosPrivate.post(`/logout`);
+                                           
+                                            toast.success('Logout successful');
+                                            navigate('/sign-in');
+                                        } catch (error) {
+                                            
+                                            toast.error('Logout failed');
+                                        }
+                                    }}
+                                    >Logout</button>
                                 </div>
                             </div> :
                                 <div className='flex gap-2  md:gap-3 items-center'>
-                                    
+
                                     <button className="px-1 py-1 btn bg-red-500 text-white md:p-2  md:font-bold rounded-md "><Link to='/sign-in'>Sign In</Link></button>
                                 </div>
                         }
-                        
+
                     </div>
 
 

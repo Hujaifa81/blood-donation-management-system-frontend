@@ -97,7 +97,7 @@ const SignIn = () => {
                         </Link>
                     </div>
                     <button type="submit" className="bg-red-600 text-white px-4 py-2 rounded w-full">Sign In</button>
-                    <button className="btn btn-neutral mt-2 bg-white dark:bg-gray-400 text-black block w-full" type="button" onClick={handleGoogle}>Sign in with Google</button>
+                    {/* <button className="btn btn-neutral mt-2 bg-white dark:bg-gray-400 text-black block w-full" type="button" onClick={handleGoogle}>Sign in with Google</button> */}
                     <p className='dark:text-white'>Don't have an account?<span className='text-red-600'><Link to='/sign-up'> Sign up</Link></span></p>
                 </form>
             </div>
