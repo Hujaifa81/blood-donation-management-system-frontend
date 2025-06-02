@@ -7,6 +7,7 @@ const AdminDashboardHomePage = () => {
     const {user}=useAuth()
     const {data: totalUsers}=useTanstackGetRequest('/users/count?role=donor', 'totalUsers', [], true);
     const {data:totalRequests}=useTanstackGetRequest('/donationRequests/count', 'totalRequests', [], true);
+    const {data:totalFunding}=useTanstackGetRequest('/total-funding','totalFunding',[],true);
   
 
   return (
@@ -34,7 +35,7 @@ const AdminDashboardHomePage = () => {
         <div className="card bg-white dark:bg-gray-900 shadow-md p-6 flex items-center gap-4 border border-gray-200 dark:border-gray-700">
           <FaHandHoldingHeart className="text-4xl text-green-600" />
           <div>
-            {/* <h3 className="text-2xl font-bold dark:text-white">${totalFunding?.toFixed(2) ?? '0.00'}</h3> */}
+            <h3 className="text-2xl font-bold dark:text-white">${totalFunding?.toFixed(2) ?? '0.00'}</h3>
             <p className="text-gray-600 dark:text-gray-400">Total Funding</p>
           </div>
         </div>

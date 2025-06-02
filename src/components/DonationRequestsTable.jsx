@@ -9,7 +9,7 @@ const DonationRequestsTable = ({limit}) => {
     const { data: donationRequests } = useTanstackGetRequest(
   `/donationRequests?${limit ? 'pageLimit=5&' : ''}status=pending`,
   'donationRequests',
-  false,
+  [],
   false
 );
 

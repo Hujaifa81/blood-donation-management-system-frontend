@@ -5,7 +5,7 @@ import PaginationButtons from '../components/PaginationButtons';
 
 const AllUsers = () => {
     const [status, setStatus] = useState('')
-    const [itemsPerPage] = useState(4);
+    const [itemsPerPage] = useState(2);
     const [currentPage, setCurrentPage] = useState(1);
     
     const { data: dataCount } = useTanstackGetRequest(`users/count?status=${status}`, 'usersCount', status, true)

@@ -12,6 +12,7 @@ import {
 } from 'react-icons/fa';
 
 import useRoleStatus from '../hooks/useRoleStatus';
+import Loading from './Loading';
 
 const navLinkClass = ({ isActive }) =>
     `flex items-center gap-3 p-2 rounded-md ${isActive ? 'bg-red-600 text-white' : 'text-gray-800 dark:text-gray-700 hover:bg-gray-200'
@@ -20,6 +21,7 @@ const navLinkClass = ({ isActive }) =>
 const Sidebar = () => {
 
     const { userRole } = useRoleStatus()
+    
     return (
         <div className="h-full px-3 space-y-2  dark:bg-gray-50 dark:text-gray-800">
            

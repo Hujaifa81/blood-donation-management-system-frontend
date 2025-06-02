@@ -5,7 +5,7 @@ import useTanstackGetRequest from '../hooks/useTanstackGetRequest';
 
 const DonationRequests = () => {
     const [currentPage, setCurrentPage] = useState(1)
-    const [itemsPerPage] = useState(4)
+    const [itemsPerPage] = useState(2)
     const { data: dataCount } = useTanstackGetRequest('/donationRequests/count', 'donationRequestsCount', [], true);
     return (
         <div>

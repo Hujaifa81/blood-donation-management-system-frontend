@@ -12,7 +12,7 @@ const AllBloodDonationRequests = () => {
   const { userRole, userStatus } = useRoleStatus()
   const [status, setStatus] = useState('');
   const [currentPage,setCurrentPage]=useState(1)
-  const [itemsPerPage]=useState(4)
+  const [itemsPerPage]=useState(2)
  
 
 

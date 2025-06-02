@@ -4,30 +4,24 @@ import { Navigate } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
 import Loading from './Loading';
 
-const VolunteerPrivateRoute = ({children}) => {
-    const {userStatus, userRole} = useRoleStatus()
-    const {loading,user}=useAuth()
-    
-    if(loading){
-        return <Loading></Loading>
-    }
-    if(!user){
-        return <Navigate to='/sign-in' ></Navigate>
-    }
-    if(userRole!=='volunteer')
-    {
-        return <Navigate to='/dashboard' ></Navigate>
-    }
-    return (
-        <div>
-            {
-                children
-            }
-        </div>
-    );
+const VolunteerPrivateRoute = ({ children }) => {
+  const { user, loading } = useAuth();
+  const { userRole, roleLoading } = useRoleStatus();
+
+  // Wait until both auth and role data are ready
+  if (loading || roleLoading) {
+    return <Loading />;
+  }
+
+  if (!user) {
+    return <Navigate to="/sign-in" />;
+  }
+
+  if (userRole !== 'volunteer') {
+    return <Navigate to="/dashboard" />;
+  }
+
+  return children;
 };
-
-    
-
 
 export default VolunteerPrivateRoute;

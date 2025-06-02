@@ -23,7 +23,7 @@ const useTanstackGetRequest = (url, queryKey, dependency = false, privateAxios =
       const res = await axiosInstance.get(url);
       return res.data;
     },
-    // enabled: dependency !== false,
+    enabled: dependency !== false,
   });
 
   return { data, isLoading, isError, error, refetch };

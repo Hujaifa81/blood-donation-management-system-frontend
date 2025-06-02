@@ -13,7 +13,7 @@ const CheckoutForm = ({ amount,setAmount }) => {
   const { user } = useAuth();
   const [clientSecret, setClientSecret] = useState('');
 
-  // donation amount in dollars
+  
 
   // 1. Create payment intent on component load
   useEffect(() => {
