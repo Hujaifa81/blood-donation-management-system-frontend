@@ -5,13 +5,18 @@ import { Link } from 'react-router-dom';
 
 
 
-const DonationRequestsTable = ({limit}) => {
-    const { data: donationRequests } = useTanstackGetRequest(
-  `/donationRequests?${limit ? 'pageLimit=5&' : ''}status=pending`,
-  'donationRequests',
-  [],
-  false
-);
+const DonationRequestsTable = ({limit,currentPage,itemsPerPage}) => {
+    const url = limit
+    ? `/donationRequests?pageLimit=5&status=pending`
+    : `/donationRequests?status=pending&page=${currentPage}&limit=${itemsPerPage}`;
+
+  const { data: donationRequests } = useTanstackGetRequest(
+    url,
+    'donationRequests',
+    [],
+    false
+  );
+
 
     return (
         <div className="overflow-x-auto max-w-5xl mx-auto bg-white dark:bg-gray-900 p-4 rounded shadow">

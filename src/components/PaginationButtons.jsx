@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 const PaginationButtons = ({ setCurrentPage, currentPage, itemsPerPage, dataCount }) => {
   const [totalItems, setTotalItems] = useState(0);
-
+  console.log(currentPage, itemsPerPage, dataCount);
   useEffect(() => {
     if (dataCount !== undefined && dataCount !== null) {
       setTotalItems(dataCount);

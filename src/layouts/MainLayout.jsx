@@ -4,7 +4,7 @@ import Nav from '../components/Nav';
 
 const MainLayout = () => {
     return (
-        <div className="min-h-screen  bg-white ">
+        <div className="min-h-screen  bg-white font-inter">
             <Nav></Nav>
             <Outlet></Outlet>
         </div>

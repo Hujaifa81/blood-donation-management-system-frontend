@@ -6,7 +6,6 @@ import Loading from '../components/Loading';
 
 const Dashboard = () => {
     const { userRole} = useRoleStatus()
-    console.log(userRole);
     
     return (
         <div>
