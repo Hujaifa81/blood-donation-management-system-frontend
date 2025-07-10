@@ -1,6 +1,10 @@
 
 # 🩸 Blood Donation Management System
 
+> 🧪 **Test Admin Credentials**  
+> Email: `admin@admin.com`  
+> Password: `123456@aA`
+
 A full-stack web application that enables users to request and manage blood donations with secure authentication and role-based access for donors, volunteers, and admins.
 
 🔗 **Live Site:** [Visit Website](https://blood-donation-managemen-7ebd3.web.app/)  
@@ -130,10 +134,11 @@ A full-stack web application that enables users to request and manage blood dona
 
 ## 🧪 Testing the App
 
-- Register as a donor and update profile info.
-- Create donation requests.
-- Use admin/volunteer roles to moderate requests or blogs.
-- Try Stripe payment with test cards: `4242 4242 4242 4242`, date: future, CVV: 123.
+- Register as a donor and update profile information.
+- Create donation requests as a donor.
+- Log in with **email:** `admin@admin.com` and **password:** `123456@aA` to access admin features and moderate requests or blogs.
+- Test Stripe payment using card: `4242 4242 4242 4242`, any future expiry date, and CVV: `123`.
+
 
 ---
 
