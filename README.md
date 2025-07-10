@@ -1,12 +1,142 @@
-# React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# 🩸 Blood Donation Management System
 
-Currently, two official plugins are available:
+A full-stack web application that enables users to request and manage blood donations with secure authentication and role-based access for donors, volunteers, and admins.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+🔗 **Live Site:** [Visit Website](https://blood-donation-managemen-7ebd3.web.app/)  
+🔗 **Frontend Repo:** [Frontend GitHub](https://github.com/Hujaifa81/blood-donation-management-system-frontend)  
+🔗 **Backend Repo:** [Backend GitHub](https://github.com/Hujaifa81/blood-donation-management-system-backend)
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🚀 Features
+
+1. **Donation Request Management**:
+   - Create, update, and delete blood donation requests.
+   - Track donation status: Pending, In-progress, Completed.
+   - Role-based moderation by Admins and Volunteers.
+
+2. **Donor Discovery**:
+   - Search by blood group, district, and upazila.
+   - Role-based access for secure filtering.
+
+3. **Blog Management**:
+   - Admins/Volunteers can add, edit, publish, or delete blogs.
+   - Blog pagination and content visibility controls.
+
+4. **Donation via Stripe**:
+   - Users can donate funds using Stripe payment gateway.
+   - All donations tracked securely.
+
+5. **Authentication & Authorization**:
+   - Firebase Auth (Google & Email/Password).
+   - JWT-based auth with secure HTTP-only cookies.
+   - Protected routes for role-based access (admin, donor, volunteer).
+
+6. **Admin Dashboard**:
+   - User management with status/role control.
+   - Blog and donation request moderation.
+
+7. **Additional Features**:
+   - Pagination across blogs and requests.
+   - Dynamic role assignment and user status control.
+   - Mobile responsive and dark mode support.
+
+---
+
+## 🛠 Tech Stack
+
+### Frontend
+
+- React.js
+- React Router DOM
+- Firebase Authentication
+- Tailwind CSS + DaisyUI
+- Axios (with interceptors)
+- React Hook Form
+- TanStack React Query
+- Swiper.js
+- Stripe (for payments)
+
+### Backend
+
+- Node.js
+- Express.js
+- MongoDB Atlas
+- JWT
+- Cookie Parser
+- CORS
+- Stripe API
+
+---
+
+## 📦 Installation Guide
+
+### Frontend Setup
+
+1. **Clone the frontend repository:**
+   ```bash
+   git clone https://github.com/Hujaifa81/blood-donation-management-system-frontend.git
+   cd blood-donation-management-system-frontend
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+3. **Configure `.env` file:**
+   ```env
+   VITE_baseURL=http://localhost:5000
+   VITE_STRIPE_PUBLISHABLE_KEY=your_stripe_publishable_key
+   ```
+
+4. **Run the frontend:**
+   ```bash
+   npm run dev
+   ```
+
+---
+
+### Backend Setup
+
+1. **Clone the backend repository:**
+   ```bash
+   git clone https://github.com/Hujaifa81/blood-donation-management-system-backend
+   cd your-backend-repo
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+3. **Create a `.env` file in the root directory:**
+   ```env
+   PORT=5000
+   DB_USERNAME=your_db_username
+   DB_PASSWORD=your_db_password
+   JWT_SECRET=your_jwt_secret
+   PAYMENT_SECRET_KEY=your_stripe_secret_key
+   NODE_ENV=development
+   ```
+
+4. **Run the server:**
+   ```bash
+   node index.js
+   ```
+
+---
+
+## 🧪 Testing the App
+
+- Register as a donor and update profile info.
+- Create donation requests.
+- Use admin/volunteer roles to moderate requests or blogs.
+- Try Stripe payment with test cards: `4242 4242 4242 4242`, date: future, CVV: 123.
+
+---
+
+## 📄 License
+
+This project is open-source and available under the [MIT License](LICENSE).
