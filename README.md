@@ -33,7 +33,7 @@ A full-stack web application that enables users to request and manage blood dona
    - All donations tracked securely.
 
 5. **Authentication & Authorization**:
-   - Firebase Auth (Google & Email/Password).
+   - Firebase Auth (Email/Password).
    - JWT-based auth with secure HTTP-only cookies.
    - Protected routes for role-based access (admin, donor, volunteer).
 
@@ -61,6 +61,7 @@ A full-stack web application that enables users to request and manage blood dona
 - TanStack React Query
 - Swiper.js
 - Stripe (for payments)
+- ImgBB API (for image hosting)
 
 ### Backend
 
@@ -91,8 +92,16 @@ A full-stack web application that enables users to request and manage blood dona
 
 3. **Configure `.env` file:**
    ```env
-   VITE_baseURL=http://localhost:5000
-   VITE_STRIPE_PUBLISHABLE_KEY=your_stripe_publishable_key
+   VITE_baseURL=https://your-backend-url.com
+   VITE_STRIPE_PUBLIC_KEY=your_stripe_publishable_key
+   VITE_apiKey=your_firebase_api_key
+   VITE_authDomain=your_firebase_auth_domain
+   VITE_projectId=your_firebase_project_id
+   VITE_storageBucket=your_firebase_storage_bucket
+   VITE_messagingSenderId=your_messaging_sender_id
+   VITE_appId=your_firebase_app_id
+   VITE_IMGBB_API_KEY=your_imgbb_api_key
+
    ```
 
 4. **Run the frontend:**
